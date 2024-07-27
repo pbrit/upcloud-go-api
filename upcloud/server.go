@@ -102,18 +102,21 @@ func (t *ServerTagSlice) UnmarshalJSON(b []byte) error {
 }
 
 // Server represents a server
+
+// +k8s:deepcopy-gen=true
+
 type Server struct {
-	CoreNumber   int            `json:"core_number,string"`
-	Hostname     string         `json:"hostname"`
-	License      float64        `json:"license"`
-	MemoryAmount int            `json:"memory_amount,string"`
-	Plan         string         `json:"plan"`
-	Progress     int            `json:"progress,string"`
-	State        string         `json:"state"`
-	Tags         ServerTagSlice `json:"tags"`
-	Title        string         `json:"title"`
-	UUID         string         `json:"uuid"`
-	Zone         string         `json:"zone"`
+	CoreNumber   string         `json:"core_number,omitempty"`
+	Hostname     string         `json:"hostname,omitempty"`
+	License      float64        `json:"license,omitempty"`
+	MemoryAmount string         `json:"memory_amount,omitempty"`
+	Plan         string         `json:"plan,omitempty"`
+	Progress     string         `json:"progress,omitempty"`
+	State        string         `json:"state,omitempty"`
+	Tags         ServerTagSlice `json:"tags,omitempty"`
+	Title        string         `json:"title,omitempty"`
+	UUID         string         `json:"uuid,omitempty"`
+	Zone         string         `json:"zone,omitempty"`
 }
 
 // ServerStorageDeviceSlice is a slice of ServerStorageDevices.
@@ -138,31 +141,37 @@ func (s *ServerStorageDeviceSlice) UnmarshalJSON(b []byte) error {
 
 // ServerNetworking represents the networking on a server response.
 // It is castable to a Networking struct.
+
+// +k8s:deepcopy-gen=true
+
 type ServerNetworking Networking
 
 // ServerDetails represents details about a server
-type ServerDetails struct {
-	Server
 
-	BootOrder string `json:"boot_order"`
+// +k8s:deepcopy-gen=true
+
+type ServerDetails struct {
+	Server `json:",inline,omitempty"`
+
+	BootOrder string `json:"boot_order,omitempty"`
 	// TODO: Convert to boolean
-	Firewall             string                   `json:"firewall"`
-	Host                 int                      `json:"host"`
-	IPAddresses          IPAddressSlice           `json:"ip_addresses"`
-	Labels               LabelSlice               `json:"labels"`
-	Metadata             Boolean                  `json:"metadata"`
-	NICModel             string                   `json:"nic_model"`
-	Networking           ServerNetworking         `json:"networking"`
-	ServerGroup          string                   `json:"server_group"`
-	SimpleBackup         string                   `json:"simple_backup"`
-	StorageDevices       ServerStorageDeviceSlice `json:"storage_devices"`
-	Timezone             string                   `json:"timezone"`
-	VideoModel           string                   `json:"video_model"`
-	RemoteAccessEnabled  Boolean                  `json:"remote_access_enabled"`
-	RemoteAccessType     string                   `json:"remote_access_type"`
-	RemoteAccessHost     string                   `json:"remote_access_host"`
-	RemoteAccessPassword string                   `json:"remote_access_password"`
-	RemoteAccessPort     int                      `json:"remote_access_port,string"`
+	Firewall             string                   `json:"firewall,omitempty"`
+	Host                 int                      `json:"host,omitempty"`
+	IPAddresses          IPAddressSlice           `json:"ip_addresses,omitempty"`
+	Labels               LabelSlice               `json:"labels,omitempty"`
+	Metadata             Boolean                  `json:"metadata,omitempty"`
+	NICModel             string                   `json:"nic_model,omitempty"`
+	Networking           ServerNetworking         `json:"networking,omitempty"`
+	ServerGroup          string                   `json:"server_group,omitempty"`
+	SimpleBackup         string                   `json:"simple_backup,omitempty"`
+	StorageDevices       ServerStorageDeviceSlice `json:"storage_devices,omitempty"`
+	Timezone             string                   `json:"timezone,omitempty"`
+	VideoModel           string                   `json:"video_model,omitempty"`
+	RemoteAccessEnabled  Boolean                  `json:"remote_access_enabled,omitempty"`
+	RemoteAccessType     string                   `json:"remote_access_type,omitempty"`
+	RemoteAccessHost     string                   `json:"remote_access_host,omitempty"`
+	RemoteAccessPassword string                   `json:"remote_access_password,omitempty"`
+	RemoteAccessPort     string                   `json:"remote_access_port,omitempty"`
 }
 
 func (s *ServerDetails) StorageDevice(storageUUID string) *ServerStorageDevice {

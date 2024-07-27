@@ -177,7 +177,7 @@ type ServerStorageDevice struct {
 	Tier       string `json:"storage_tier"`
 	Title      string `json:"storage_title"`
 	Type       string `json:"type"`
-	BootDisk   int    `json:"boot_disk,string"`
+	BootDisk   string `json:"boot_disk"`
 }
 
 // StorageImportDetails represents the details of an ongoing or completed storage import operation.

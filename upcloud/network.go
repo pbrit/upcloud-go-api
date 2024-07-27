@@ -10,6 +10,9 @@ const (
 )
 
 // ServerInterface represent a network interface on the server
+
+// +k8s:deepcopy-gen=true
+
 type ServerInterface Interface
 
 // ServerInterfaceSlice is a slice of ServerInterfaces.
@@ -33,8 +36,11 @@ func (s *ServerInterfaceSlice) UnmarshalJSON(b []byte) error {
 }
 
 // Networking represents networking in a response
+
+// +k8s:deepcopy-gen=true
+
 type Networking struct {
-	Interfaces ServerInterfaceSlice `json:"interfaces"`
+	Interfaces ServerInterfaceSlice `json:"interfaces,omitempty"`
 }
 
 // UnmarshalJSON is a custom unmarshaller that deals with

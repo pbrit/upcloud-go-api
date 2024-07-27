@@ -124,7 +124,7 @@ type AttachStorageRequest struct {
 	Type        string `json:"type,omitempty"`
 	Address     string `json:"address,omitempty"`
 	StorageUUID string `json:"storage,omitempty"`
-	BootDisk    int    `json:"boot_disk,omitempty,string"`
+	BootDisk    string `json:"boot_disk,omitempty"`
 }
 
 // RequestURL implements the Request interface

@@ -2,6 +2,7 @@ package upcloud
 
 import (
 	"encoding/json"
+	"strconv"
 	"time"
 )
 
@@ -35,14 +36,21 @@ func (b *Boolean) UnmarshalJSON(buf []byte) error {
 	return nil
 }
 
+// NB(pbrit): Commented due to complication with integrating it with Kubernetes
+// MarshalJSON is a custom unmarshaller that deals with
+// deeply embedded values.
+// func (b *Boolean) MarshalJSON() ([]byte, error) {
+// 	if (*b) == 1 {
+// 		return []byte(`"yes"`), nil
+// 	}
+
+// 	return []byte(`"no"`), nil
+// }
+
 // MarshalJSON is a custom unmarshaller that deals with
 // deeply embedded values.
 func (b *Boolean) MarshalJSON() ([]byte, error) {
-	if (*b) == 1 {
-		return []byte(`"yes"`), nil
-	}
-
-	return []byte(`"no"`), nil
+	return []byte(strconv.Itoa(int(*b))), nil
 }
 
 // Bool converts to a standard bool value

@@ -122,7 +122,7 @@ func TestAttachStorageRequest(t *testing.T) {
 		ServerUUID:  "bar",
 		Type:        upcloud.StorageTypeDisk,
 		Address:     "scsi:0:0",
-		BootDisk:    1,
+		BootDisk:    "1",
 	}
 
 	expectedJSON := `
